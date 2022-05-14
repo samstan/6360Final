@@ -21,7 +21,6 @@ prices = np.array([30,25,20,15,10])
 
 p_salvage = prices/2 #salvaged price is 1/2
 
-#return distribution is discrete uniform over 1,2,...,10 days
 p_return = np.zeros((num_prod, T))
 for p in range(num_prod):
     for t in range(1,11):
@@ -152,9 +151,13 @@ def getRevenue(e, pot):
             revs[i,j] = sim(arrivals, pot)
     return revs.mean(axis = 1)
 
-#EXAMPLE USAGE
+
 e = 1 #e.g. kappa = 5e-3
-print('myopic: ', getRevenue(e,'myopic'))
-print('linear: ', getRevenue(e,'linear'))
-print('exponential: ', getRevenue(e,'exponential'))
+pots = ['myopic','linear','exponential']
+for e in range(3):
+    print(names[e],': ')
+    for p in pots:
+        print(p, ': ')
+        np.save('revenues'+str(INIT_CAP)+str(RETURN_TIME)+names[e]+p+'.npy',getRevenue(e,p))
+
 

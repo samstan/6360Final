@@ -5,6 +5,7 @@ from gurobipy import *
 INIT_CAP = 30 #10,20,30
 RETURN_SCALE = 60 #40,60,80
 KAPPAS = [0.5, 5e-3, 5e-5]
+RETURN_TIME = 0 #0 is uniform, 1 is decreasing from day 1 to day 10, 2 is peaking at day 5/6
 names = ['high','medium','low'] # for the kappa values
 
 np.random.seed(6360)
@@ -21,11 +22,15 @@ prices = np.array([30,25,20,15,10])
 
 p_salvage = prices/2 #salvaged price is 1/2
 
-#return distribution is discrete uniform over 1,2,...,10 days
 p_return = np.zeros((num_prod, T))
 for p in range(num_prod):
     for t in range(1,11):
-        p_return[p,t] = 1/10
+        if RETURN_TIME == 0:
+            p_return[p,t] = 1/10
+        elif RETURN_TIME == 1:
+            p_return[p,t] = (11-t)/55
+        else:
+            p_return[p,t] = np.minimum(t, 11-t)/30
 
 prob_return = prices/RETURN_SCALE
 
@@ -151,5 +156,5 @@ def getUB(e):
         res[i] = obj.getValue()
     return res
 #EXAMPLE USAGE
-e = 1 #e.g. kappa = 5e-3
-getUB(e)
+for e in range(3):
+    np.save('revenues'+str(INIT_CAP)+str(RETURN_TIME)+names[e]+'ub'+'.npy', getUB(e))
