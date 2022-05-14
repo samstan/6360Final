@@ -153,8 +153,8 @@ def getRevenue(e, pot):
     return revs.mean(axis = 1)
 
 #EXAMPLE USAGE
-# e = 1 #e.g. kappa = 5e-3
-# print('myopic,', i, ': ', getRevenue(e,'myopic'))
-# print('linear,', i, ': ', getRevenue(e,'linear'))
-# print('exponential,', i, ': ', getRevenue(e,'exponential'))
+e = 1 #e.g. kappa = 5e-3
+print('myopic: ', getRevenue(e,'myopic'))
+print('linear: ', getRevenue(e,'linear'))
+print('exponential: ', getRevenue(e,'exponential'))
 
