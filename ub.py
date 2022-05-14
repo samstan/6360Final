@@ -142,13 +142,14 @@ def modelUpdate(arr):
     
 def getUB(e):
     '''e is index of kappa value'''
+    res = np.zeros(10)
     for i in range(10):
         arrivals = np.load('arrivals' + str(i)+'_'+names[e]+'.npy')
         modelUpdate(arrivals)
         m.optimize()
         obj = m.getObjective()
-        print(names[e], i, ': ',obj.getValue())
-
+        res[i] = obj.getValue()
+    return res
 #EXAMPLE USAGE
-# e = 1 #e.g. kappa = 5e-3
-# getUB(e)
+e = 1 #e.g. kappa = 5e-3
+getUB(e)
