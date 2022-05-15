@@ -10,7 +10,7 @@ for i in range(3):
     for r in range(3):
         for e in range(3):
             for p in pots:
-                tmp1 = np.load('revenues'+str(INIT_CAPS[i])+str(r)+names[e]+p+'.npy',getRevenue(e,p))
-                tmp2 = np.load('revenues'+str(INIT_CAPS[i])+str(e)+names[e]+'ub'+'.npy',getRevenue(e,p))
+                tmp1 = np.load('revenues'+str(INIT_CAPS[i])+str(r)+names[e]+p+'.npy')
+                tmp2 = np.load('revenues'+str(INIT_CAPS[i])+str(r)+names[e]+'ub'+'.npy')
                 print("Capacity: " + str(INIT_CAPS[i]) + ', Return dist: '+ str(RETURN_TIMES[r]) + ', Kappa: ' + names[e]+ ', Potential: ' + p)
                 print(np.mean(np.divide(tmp1, tmp2)))
